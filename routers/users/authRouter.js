@@ -33,7 +33,12 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  if (!req.body.email || !req.body.password || !req.body.confirm) {
+  if (
+    !req.body.email ||
+    !req.body.password ||
+    !req.body.confirm ||
+    !req.body.type
+  ) {
     return res.status(500).json({ error: "Fill in all fields please" });
   }
   if (req.body.password !== req.body.confirm) {
@@ -51,6 +56,7 @@ router.post("/register", (req, res) => {
             const newUser = new User({
               email: req.body.email,
               password: hashed,
+              type: req.body.type,
             });
             newUser
               .save()
@@ -90,6 +96,7 @@ router.post("/login", (req, res) => {
               {
                 id: loggedUser._id,
                 email: loggedUser.email,
+                type: loggedUser.type,
               },
               process.env.TOKEN_SECRET,
               { expiresIn: "10h" }
