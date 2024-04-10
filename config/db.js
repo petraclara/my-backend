@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-const dbUrl = process.env.mongoLocal;
+const dbUrl = process.env.mongoProd;
 const dbName = process.env.DBNAME;
 
 const connectToMongo = async () => {
   try {
-    const connection = await mongoose.connect(dbUrl, { dbName: dbName });
+    const connection = await mongoose.connect(dbUrl);
     if (connection) {
       console.log("Connection is connected");
     } else {

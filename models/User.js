@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
   lastName: {
     type: String,
   },
+  type: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

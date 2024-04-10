@@ -2,10 +2,13 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 3000;
+const PORTCHAT = process.env.PORTCHAT || 5000;
 const cors = require("cors");
 const connectToDb = require("./config/db");
 const Therapist = require("./therapistSchema"); // Import the therapist schema/model
 const router = express.Router();
+const { server, appChat } = require("./routers/chats/chatRouter");
+const authRouter = require("./routers/users/authRouter");
 // Configure CORS
 const corsOptions = {
   origin: [
@@ -24,6 +27,10 @@ app.use(cors(corsOptions));
 // Connect to the database
 connectToDb();
 
+app.use("/auth", authRouter);
+server.listen(PORTCHAT, () => {
+  console.log(`Server started on port ${PORTCHAT}`);
+});
 // Define route to fetch therapists based on preferences
 app.post("/patient-request", async (req, res) => {
   try {
@@ -55,7 +62,7 @@ app.post("/therapist/add", async (req, res) => {
       specialty,
       language,
       race,
-      age
+      age,
     });
 
     // Save the new therapist document to the database
@@ -76,7 +83,6 @@ module.exports = router;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Clare Petra server" });
