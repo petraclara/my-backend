@@ -22,17 +22,17 @@ wss.on("connection", (ws) => {
     });
 
   // Subscribe to changes in Post collection
-  // const changeStream = User.watch();
-  // changeStream.on("change", () => {
-  //   // Notify client when data changes
-  //   Post.find()
-  //     .then((posts) => {
-  //       ws.send(JSON.stringify({ type: "UPDATE_DATA", data: posts }));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
+  const changeStream = User.watch();
+  changeStream.on("change", () => {
+    // Notify client when data changes
+    Post.find()
+      .then((posts) => {
+        ws.send(JSON.stringify({ type: "UPDATE_DATA", data: posts }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
 
 appChat.get("/users", async (req, res) => {
