@@ -6,7 +6,7 @@ const dbName = process.env.DBNAME;
 
 const connectToMongo = async () => {
   try {
-    const connection = await mongoose.connect(dbUrl, { dbName: dbName });
+    const connection = await mongoose.connect(dbUrl);
     if (connection) {
       console.log("Connection is connected");
     } else {
