@@ -101,7 +101,13 @@ router.post("/login", (req, res) => {
               process.env.TOKEN_SECRET,
               { expiresIn: "10h" }
             );
-            return res.status(201).json({ token: token });
+            return res
+              .status(201)
+              .json({
+                token: token,
+                id: loggedUser._id,
+                email: loggedUser.email,
+              });
           } else {
             return res.status(401).json({ error: "Wrong Credentials!" });
           }
