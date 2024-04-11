@@ -28,9 +28,9 @@ app.use(cors(corsOptions));
 connectToDb();
 
 app.use("/auth", authRouter);
-server.listen(PORTCHAT, () => {
-  console.log(`Server started on port ${PORTCHAT}`);
-});
+// server.listen(PORTCHAT, () => {
+//   console.log(`Server started on port ${PORTCHAT}`);
+// });
 // Define route to fetch therapists based on preferences
 app.post("/patient-request", async (req, res) => {
   try {
