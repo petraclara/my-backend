@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const PORTCHAT = process.env.PORTCHAT || 5000;
 const cors = require("cors");
 const connectToDb = require("./config/db");
+const Patient = require("./patientSchema");
 const Therapist = require("./therapistSchema"); // Import the therapist schema/model
 const router = express.Router();
 const { server, appChat } = require("./routers/chats/chatRouter");
@@ -86,4 +87,16 @@ app.listen(PORT, () => {
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to Clare Petra server" });
+});
+
+app.post("/therapist-request", async (req, res) => {
+  try {
+    // Find the first 100 patients
+    const patients = await Patient.find()
+
+    res.json(patients);
+  } catch (error) {
+    console.error("Error handling request:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
