@@ -7,6 +7,8 @@ const cors = require("cors");
 const connectToDb = require("./config/db");
 const Patient = require("./patientSchema");
 const Therapist = require("./therapistSchema"); // Import the therapist schema/model
+const chatRouter = require("./routers/chats/chatRouter");
+const conversationRouter = require("./routers/chats/conversationRouter");
 const router = express.Router();
 const { server, appChat } = require("./routers/chats/chatRouter");
 const authRouter = require("./routers/users/authRouter");
@@ -29,6 +31,8 @@ app.use(cors(corsOptions));
 connectToDb();
 
 app.use("/auth", authRouter);
+app.use("/conversation", conversationRouter);
+app.use("/chat", chatRouter);
 // server.listen(PORTCHAT, () => {
 //   console.log(`Server started on port ${PORTCHAT}`);
 // });
