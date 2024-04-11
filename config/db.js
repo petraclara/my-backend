@@ -8,7 +8,7 @@ const connectToMongo = async () => {
   try {
     const connection = await mongoose.connect(dbUrl);
     if (connection) {
-      console.log("Connection is connected");
+      console.log("Db is connected");
     } else {
       console.log("Not yet connected");
     }
